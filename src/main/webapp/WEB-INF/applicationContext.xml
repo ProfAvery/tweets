@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="tweetDao" class="net.kenytt.csuf.cpsc476.db.TweetDAO">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="userDao" class="net.kenytt.csuf.cpsc476.db.UserDAO">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven />
+    
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />
+        <property name="url" value="jdbc:hsqldb:hsql://localhost/cpsc476" />
+        <property name="username" value="SA" />
+        <property name="password" value="Passw0rd" />
+    </bean>
+
+</beans>
