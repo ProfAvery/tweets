@@ -1,11 +1,16 @@
 CPSC 476 - Java Enterprise Application Development
 Fall 2012
-Sample Code for Problem Set 5
+Starter Code for Problem Set 6
 
-This is an implementation of Problems 4, 5, and 6 from Problem Set 4 using
-Spring and JDBC.  You are free to use this code to complete Problem Set 5.
+This is a branch of the Sample Code for Problem Set 5 that adds a simple
+REST API and includes dependencies for Message Queueing.  You may use
+this code as-is to complete Problem Set 6, or add similar functionality
+to your own code.
 
 See src/main/scripts for database schema and sample data.
+
+Note that there are a couple of bug fixes/enhancements compared to the
+master branch.  These may eventually be merged back into master.
 
 To import this project into STS:
   1. Download the ZIP file from the GitHub page

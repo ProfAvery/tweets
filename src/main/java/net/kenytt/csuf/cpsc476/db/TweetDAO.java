@@ -51,29 +51,16 @@ public class TweetDAO extends JdbcDaoSupport implements ITweetDAO {
     public Tweet getTweet(int id) {
         JdbcTemplate jdbcTemplate = getJdbcTemplate();
         return jdbcTemplate.queryForObject(
-                "SELECT screen_name, text, retweet_count "
+                "SELECT id, user_id, screen_name, text, retweet_count, created_at "
                         + "FROM tweets, users " + "WHERE id = ? "
                         + "AND tweets.user_id = users.id", new Object[] { id },
-                new RowMapper<Tweet>() {
-                    public Tweet mapRow(ResultSet rs, int rowNum)
-                            throws SQLException {
-                        Tweet t = new Tweet();
-
-                        t.setScreenName(rs.getString("screen_name"));
-                        t.setText(rs.getString("text"));
-                        t.setRetweetCount(rs.getInt("retweet_count"));
-
-                        return t;
-                    }
-                });
-
+                new TweetMapper());
     }
 
     public void createTweet(Tweet t) {
         JdbcTemplate jdbcTemplate = getJdbcTemplate();
-        jdbcTemplate.update("INSERT INTO tweets(user_id, text, retweet_count) "
-                + "VALUES(?, ?, ?)", t.getUserId(), t.getText(),
-                t.getRetweetCount());
+        jdbcTemplate.update("INSERT INTO tweets(user_id, text) "
+                + "VALUES(?, ?)", t.getUserId(), t.getText());
     }
 
     @Transactional(propagation=Propagation.REQUIRED)
