@@ -20,8 +20,9 @@ public class UserDAO extends JdbcDaoSupport implements IUserDAO {
         try {
             JdbcTemplate jdbcTemplate = getJdbcTemplate();
 
-            int userId = jdbcTemplate.queryForInt(
-                    "SELECT id FROM users WHERE screen_name = ?", screenName);
+            int userId = jdbcTemplate.queryForObject(
+                    "SELECT id FROM users WHERE screen_name = ?",
+                    new Object[] { screenName }, Integer.class);
 
             return userId;
         } catch (EmptyResultDataAccessException e) {
